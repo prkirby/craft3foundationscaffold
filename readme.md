@@ -53,6 +53,6 @@ Remove all of the lines after:
 #### Build for production
     npm run production
 
-###### Note: all needed files are put in /web/assets/ by default.
+###### Note: all needed files are put in /web/dist/ by default.
 ###### You may need to change this in config.yml for production.
 ###### You may also want to edit the .gitignore file to match it to your project needs.
