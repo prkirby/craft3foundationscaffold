@@ -33,6 +33,10 @@ Remove all of the lines after:
 
     npm install
 
+#### Edit config.yml to reflect your dev environment
+
+    PROXY: 'yoursite.localhost' # Change this for your local server
+
 #### Love Life.
 
 

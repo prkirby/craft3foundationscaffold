@@ -18,7 +18,7 @@ const $ = plugins();
 const PRODUCTION = !!(yargs.argv.production);
 
 // Load settings from settings.yml
-const { COMPATIBILITY, PORT, PATHS } = loadConfig();
+const { COMPATIBILITY, PORT, PROXY, PATHS } = loadConfig();
 
 function loadConfig() {
   let ymlFile = fs.readFileSync('config.yml', 'utf8');
@@ -96,7 +96,10 @@ function javascript() {
 // Start a server with BrowserSync to preview the site in
 function server(done) {
   browser.init({
-    server: PATHS.dist, port: PORT
+    port: PORT,
+    proxy: {
+      target: PROXY,
+    }
   });
   done();
 }
