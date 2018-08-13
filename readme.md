@@ -4,12 +4,12 @@
 
 #### Install Craft 3 with composer
 
-[Instructions Here](https://github.com/craftcms/docs/blob/v3/en/installation.md)
+    composer create-project craftcms/craft PATH
 
-#### Remove .gitignore and README.md from your new craft project
+#### Remove .gitignore from your new craft project
 This is so we can pull in the scaffold repo with no merge issues
 
-    rm .gitignore README.md
+    rm .gitignore
 
 #### Initialize git in your project
 
