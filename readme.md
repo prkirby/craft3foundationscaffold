@@ -43,7 +43,7 @@ Remove all of the lines after:
 #### (Optional)
 #### Remove scaffolding remote
 
-    git remote remove scaffolding
+    git remote remove scaffold
 
 
 ## npm Commands
