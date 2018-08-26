@@ -5,7 +5,7 @@
 @import 'motion-ui';
 
 @include foundation-global-styles;
-// @include foundation-grid;
+@include foundation-grid;
 // @include foundation-flex-grid;
 //
 @include foundation-xy-grid-classes;
@@ -52,5 +52,6 @@
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
-
-// Import all custom files below
+// vendor styles
+@import 'vendor/aos';
+@import 'vendor/slick-carousel';

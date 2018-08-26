@@ -18,7 +18,7 @@ const $ = plugins();
 const PRODUCTION = !!(yargs.argv.production);
 
 // Load settings from settings.yml
-const { COMPATIBILITY, PORT, PROXY, PATHS } = loadConfig();
+const { COMPATIBILITY, PORT, PROXY, UNCSS_OPTIONS, PATHS } = loadConfig();
 
 function loadConfig() {
   let ymlFile = fs.readFileSync('config.yml', 'utf8');
@@ -27,7 +27,7 @@ function loadConfig() {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
-  gulp.series(clean, gulp.parallel(sass, javascript, copy)));
+  gulp.series(clean, gulp.parallel(sass, javascript, images, copy)));
 
 // Build the site, run the server, and watch for file changes
 gulp.task('default',
@@ -59,6 +59,7 @@ function sass() {
       browsers: COMPATIBILITY
     }))
     // Comment in the pipe below to run UnCSS in production
+    //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
     .pipe($.if(PRODUCTION, $.cleanCss({ compatibility: 'ie9' })))
     .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
     .pipe(gulp.dest(PATHS.dist + '/css'))
@@ -93,6 +94,15 @@ function javascript() {
     .pipe(gulp.dest(PATHS.dist + '/js'));
 }
 
+// Copy images to the "dist" folder
+// In production, the images are compressed
+function images() {
+  return gulp.src('src/assets/img/**/*')
+    .pipe($.if(PRODUCTION, $.imagemin({
+      progressive: true
+    })))
+    .pipe(gulp.dest(PATHS.dist + '/img'));
+}
 // Start a server with BrowserSync to preview the site in
 function server(done) {
   browser.init({
@@ -110,4 +120,5 @@ function watch() {
   gulp.watch(['templates/**/*.html', 'templates/**/*.twig']).on('all', browser.reload);
   gulp.watch('src/scss/**/*.scss').on('all', sass);
   gulp.watch('src/js/**/*.js').on('all', gulp.series(javascript, browser.reload));
+  gulp.watch('src/img/**/*').on('all', gulp.series(images, browser.reload));
 }

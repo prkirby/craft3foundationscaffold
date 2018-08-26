@@ -21,7 +21,6 @@ config
 modules
 storage
 templates
-vendor
 web
 .env
 .env.example
